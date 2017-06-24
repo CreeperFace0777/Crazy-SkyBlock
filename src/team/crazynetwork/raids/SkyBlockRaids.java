@@ -20,8 +20,18 @@ public class SkyBlockRaids extends JavaPlugin {
 	public Object getSettings(String settingName){ 
 		//getConfig conflicts with JavaPlugin.getConfig
 		//Returns a value from the config file.
-		
+
 		//To be implemented. A return of a placeholder for now.
 		return 1000;
+
+		//Code Suggestion:
+        /*
+
+        if(getConfig().get(settingName) != null) {
+		    return getConfig().get(settingName);
+        } return null;
+
+         */
+        
 	}
 }

@@ -12,10 +12,14 @@ import team.crazynetwork.raids.skyfactory.Crook;
 import java.util.Arrays;
 
 public class SkyBlockRaids extends JavaPlugin {
+    private static SkyBlockRaids self;
 
     @Override
     public void onEnable() {
-        Bukkit.getServer().getPluginManager().registerEvents(new Crook(), this);
+
+        self = this; //A workaround as static vars normally do not allow this.
+
+        Bukkit.getServer().getPluginManager().registerEvents(new Crook(), this); //Adds the Crook Listener
 
         //CROOK RECIPE
         ItemStack crookItem = new ItemStack(Material.STICK, 1);
@@ -34,5 +38,18 @@ public class SkyBlockRaids extends JavaPlugin {
         crook2.setIngredient('#', Material.AIR);
         Bukkit.getServer().addRecipe(crook2);
 
+    }
+
+
+    public static SkyBlockRaids getPlugin(){ //Give other classes direct access to the plugin's methods.
+        return self;
+    }
+
+    public Object getSettings(String settingName){
+        //getConfig conflicts with JavaPlugin.getConfig
+        //Returns a value from the config file.
+
+        //To be implemented. A return of a placeholder for now.
+        return 1000;
     }
 }

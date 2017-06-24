@@ -1,0 +1,10 @@
+#Islands Config
+
+player-uuid:
+    x: 0
+    y: 0
+    z: 0
+    members:
+      - Member1 #UUID
+      - Member2
+    raidableTime: 0 #Miliseconds

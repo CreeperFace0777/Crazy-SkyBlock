@@ -10,17 +10,19 @@ import java.util.List;
 import java.util.UUID;
 
 public class Island {
-    public static List<Island> islands = new ArrayList<>();
     private int x, y, z; //The coordinates of the island
     private Long raidableTime; //When it will be raidable
     private Player owner; //The owner
     private List<Player> members; //Members of the island
+    private double balence; //Island Balance
 
     public Island(int x, int y, int z, Player owner) { //Constructor. Initializes everything from given vars. This is for NEW islands
         x = this.x;
         y = this.y;
         z = this.z;
         raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay"); //Gets current time and adds the delay to raid to it.
+        this.balence = 0;
+        this.members = new ArrayList<>();
     }
 
     public Island(Player owner) {
@@ -31,8 +33,7 @@ public class Island {
         this.raidableTime = pIsland.getLong("raidableTime");
         for (String member : pIsland.getStringList("members"))
             this.members.add(Bukkit.getPlayer(UUID.fromString(member)));
-
-
+        this.balence = pIsland.getDouble("balence");
     }
 
     public Player getOwner() {

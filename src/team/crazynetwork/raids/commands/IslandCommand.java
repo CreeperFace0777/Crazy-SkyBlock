@@ -6,20 +6,30 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import team.crazynetwork.raids.Island;
+import team.crazynetwork.raids.SkyBlockRaids;
+
 public class IslandCommand implements CommandExecutor {
 
 	Plugin pl;
+	Island i;
+
+	public IslandCommand(SkyBlockRaids self) {
+		pl = self;
+	}
+
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if(sender instanceof Player) {
+		if(!(sender instanceof Player)) {
 		
-		sender.sendMessage("§3§m--------------------"); // showing developer
-														// info and showing help
-														// info after a second
-														// not to bombard the
-														// player ;D
+			// showing developer
+			// info and showing help
+			// info after a second
+			// not to bombard the
+			// player ;D
+		sender.sendMessage("§3§m--------------------"); 
 		sender.sendMessage("§c§lSky Block Raids");
 		sender.sendMessage("§9§lAuthors:");
 		sender.sendMessage("§9§k§l::§r §a§lCreeperFace0777 §9§k§l::§r");
@@ -37,8 +47,7 @@ public class IslandCommand implements CommandExecutor {
 		}, 20L);
 		return true;
 	}
-		// sender.sendMessage("This command is only supported for
-		// players."); //return command for pesky non players.
+
 
 		Player p = (Player) sender;
 		if (!(p.hasPermission("skyraids.island"))) {
@@ -55,6 +64,15 @@ public class IslandCommand implements CommandExecutor {
 			 * 
 			 */
 		}
+		if(args[0].equalsIgnoreCase("invite")){
+			//First check if the player is the owner of an island, or is part of an island.
+			//Then we need to make sure that their is 3 arguments '/is add [player], no more, no less
+			// Then we need to make sure args[2] is actually a player, and that they are online.
+			// then the player will have 60 seconds to accept the request, and they will be added to the island.
+			// GG EZ 
+			
+		}
+		
 		return true;
 	}
 }

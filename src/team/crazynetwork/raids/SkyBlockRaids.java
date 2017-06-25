@@ -16,7 +16,7 @@ public class SkyBlockRaids extends JavaPlugin {
 	
 	public void onEnable() { //Runs on startup AND when server is reloaded. DO NOT assume 0 players.
 		self = this; //A workaround as static vars normally do not allow this.
-		Bukkit.getPluginCommand("island").setExecutor(new IslandCommand());
+		Bukkit.getPluginCommand("island").setExecutor(new IslandCommand(self));
 	}
 	
 	public void onDisable(){ //Save all the file here when the plugin is disabled.

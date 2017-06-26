@@ -87,7 +87,7 @@ public class Crook implements Listener {
 
     @EventHandler
     public void onItemCraft(CraftItemEvent e) {
-        if (e.getInventory().getResult().getAmount() > 1) {
+        if (e.getInventory().getResult().getAmount() > 1 && e.getInventory().getResult() == recipe()[0].getResult()) {
             e.setCancelled(true);
             e.getWhoClicked().sendMessage(ChatColor.RED + "You can only craft one at a time!");
             if (e.getWhoClicked() instanceof Player) {

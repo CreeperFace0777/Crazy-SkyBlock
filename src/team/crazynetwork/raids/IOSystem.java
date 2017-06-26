@@ -11,11 +11,9 @@ public class IOSystem {
 
 	public static void setupFiles() {
 		if (!SkyBlockRaids.getPlugin().getDataFolder().exists()){
-			try { //If it doesn't then try create it
-				SkyBlockRaids.getPlugin().getDataFolder().createNewFile();
-			} catch (IOException ex) { //If it can't create a file, something is seriously wrong.
-				SkyBlockRaids.getPlugin().getLogger().severe("Couldn't create plugin folder!");
-			}
+			//If it doesn't then try create it
+			SkyBlockRaids.getPlugin().getDataFolder().mkdir();
+
 		}
 		loadConfig("islands.yml");
 		loadConfig("shop.yml");
@@ -32,8 +30,12 @@ public class IOSystem {
 				return; //Do not continue with code if the file cannot be created.
 			}
 		}
+		if(configName.contains("."))
 		SkyBlockRaids.config.put(configName.split(".")[0],
 				(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
+		else SkyBlockRaids.config.put(configName,
+			(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
+
 	}
 	
 	public static void loadIslands(FileConfiguration config){

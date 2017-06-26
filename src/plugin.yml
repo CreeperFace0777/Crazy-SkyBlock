@@ -5,6 +5,10 @@ version: 1.0
 
 commands:
   island:
-    aliases: is
+    aliases: [is]
     usage: /<command>
     description: Skyblock Island Command
+
+permissions:
+    skyraids.island:
+        description: Main SkyBlockRaids Permission.

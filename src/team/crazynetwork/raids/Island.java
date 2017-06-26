@@ -26,12 +26,12 @@ public class Island {
         this.members = new ArrayList<>();
 
         SkyBlockRaids.islands.add(this);
-        SkyBlockRaids.playerIsland.put(owner, this);
+        SkyBlockRaids.playerIsland.put(owner.getUniqueId().toString(), this);
     }
 
-    public Island(Player owner) {
+    public Island(String ownerName) {
     	FileConfiguration config = (FileConfiguration) SkyBlockRaids.getPlugin().getSettings(null,"islands");
-        ConfigurationSection pIsland = config.getConfigurationSection(owner.getUniqueId().toString());
+        ConfigurationSection pIsland = config.getConfigurationSection(ownerName);
         try {
             this.x = pIsland.getInt("x");
             this.y = pIsland.getInt("y");
@@ -44,7 +44,7 @@ public class Island {
             Bukkit.getLogger().severe("Config for " + owner.getName() + " is set out incorrectly");
         }
         SkyBlockRaids.islands.add(this);
-        SkyBlockRaids.playerIsland.put(owner, this);
+        SkyBlockRaids.playerIsland.put(owner.getUniqueId().toString(), this);
         raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay","islands"); //Gets current time and adds the delay to raid to it.
     
     }

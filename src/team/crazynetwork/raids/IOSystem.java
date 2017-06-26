@@ -24,5 +24,15 @@ public class IOSystem {
 		SkyBlockRaids.getPlugin().config.put(configName.split(".")[0],
 				(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
 	}
-
+	
+	public static void loadIslands(FileConfiguration config){
+		for (String sectionName:config.getKeys(false)){
+			if (config.isConfigurationSection(sectionName)){
+				SkyBlockRaids.getPlugin(); //To access playerIsland in a "static" way
+				SkyBlockRaids.playerIsland.put(sectionName,new Island(sectionName));
+			} else {
+				SkyBlockRaids.getPlugin().getLogger().severe("Island config may be corrupted! " + sectionName + "'s island may be missing.");
+			}
+		}
+	}
 }

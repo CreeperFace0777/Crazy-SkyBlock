@@ -23,6 +23,15 @@ public class IOSystem {
 	
 	private static void loadConfig(String configName){
 		SkyBlockRaids.getPlugin();
+		File file = new File(SkyBlockRaids.getPlugin().getDataFolder(),configName);
+		if (!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e){
+				SkyBlockRaids.getPlugin().getLogger().severe("Couldn't create " + configName);
+				return; //Do not continue with code if the file cannot be created.
+			}
+		}
 		SkyBlockRaids.config.put(configName.split(".")[0],
 				(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
 	}

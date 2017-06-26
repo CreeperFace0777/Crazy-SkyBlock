@@ -53,7 +53,6 @@ public class Island {
         return owner; //Returns owner. Duh.
     }
 
-
     public List<Player> getMembers() {
         return members; //Get the members of the island
     }

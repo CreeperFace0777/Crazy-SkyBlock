@@ -1,5 +1,6 @@
 package team.crazynetwork.raids.commands;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -9,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.plugin.Plugin;
 
 import team.crazynetwork.raids.Island;
@@ -158,7 +158,7 @@ public class IslandCommand implements CommandExecutor {
 				Player t = pl.getServer().getPlayer(args[2]);
 				if (t != null && t.isOnline()) {
 					if(addMember.containsValue(p)){
-						
+						//need to finish up the code.
 					}
 				}
 			}

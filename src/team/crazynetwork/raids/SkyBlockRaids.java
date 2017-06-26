@@ -29,7 +29,7 @@ public class SkyBlockRaids extends JavaPlugin {
     	IOSystem.setupFiles();
 		self = this; //A workaround as static vars normally do not allow this.
 		
-		Bukkit.getPluginCommand("island").setExecutor(new IslandCommand());
+		Bukkit.getPluginCommand("island").setExecutor(new IslandCommand(this));
         Bukkit.getServer().getPluginManager().registerEvents(new Crook(), this); //Adds the Crook Listener
         
         getServer().addRecipe(Crook.recipe()[0]); //Both crook recipes

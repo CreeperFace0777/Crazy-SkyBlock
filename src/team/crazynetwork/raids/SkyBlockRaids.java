@@ -15,7 +15,7 @@ import team.crazynetwork.raids.skyfactory.Crook;
 public class SkyBlockRaids extends JavaPlugin {
     private static SkyBlockRaids self;
 	
-    public Hashtable<String,FileConfiguration> config = new Hashtable<>();
+    public static Hashtable<String,FileConfiguration> config = new Hashtable<>();
     public static List<Island> islands = new ArrayList<>();
     public static HashMap<String, Island> playerIsland = new HashMap<>();
 
@@ -40,10 +40,11 @@ public class SkyBlockRaids extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        //TODO: Handle saving islands
+        IOSystem.saveFiles();
     }
 	
 	public Object getSettings(String settingName,String configName){
+		configName = configName.split(".")[0];
 		if (settingName == null){
 			return config.get(configName);
 		}

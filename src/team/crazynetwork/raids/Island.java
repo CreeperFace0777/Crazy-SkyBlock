@@ -11,11 +11,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class Island {
-    private int x, y, z; //The coordinates of the island
-    private Long raidableTime; //When it will be raidable
+    public int x, y, z; //The coordinates of the island
+    public Long raidableTime; //When it will be raidable
     private Player owner; //The owner
-    private List<Player> members; //Members of the island
-    private double balance; //Island Balance
+    public List<Player> members; //Members of the island
+    public double balance; //Island Balance
 
     public Island(int x, int y, int z, Player owner) { //Constructor. Initializes everything from given vars. This is for NEW islands
         x = this.x;

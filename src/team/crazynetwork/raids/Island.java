@@ -1,13 +1,14 @@
 package team.crazynetwork.raids;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 public class Island {
     private int x, y, z; //The coordinates of the island
@@ -20,7 +21,7 @@ public class Island {
         x = this.x;
         y = this.y;
         z = this.z;
-        raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay"); //Gets current time and adds the delay to raid to it.
+        raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay","islands"); //Gets current time and adds the delay to raid to it.
         this.balance = 0;
         this.members = new ArrayList<>();
 
@@ -29,7 +30,8 @@ public class Island {
     }
 
     public Island(Player owner) {
-        ConfigurationSection pIsland = SkyBlockRaids.getPlugin().islandConfig.getConfigurationSection(owner.getUniqueId().toString());
+    	FileConfiguration config = (FileConfiguration) SkyBlockRaids.getPlugin().getSettings(null,"islands");
+        ConfigurationSection pIsland = config.getConfigurationSection(owner.getUniqueId().toString());
         try {
             this.x = pIsland.getInt("x");
             this.y = pIsland.getInt("y");
@@ -43,6 +45,8 @@ public class Island {
         }
         SkyBlockRaids.islands.add(this);
         SkyBlockRaids.playerIsland.put(owner, this);
+        raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay","islands"); //Gets current time and adds the delay to raid to it.
+    
     }
 
     public Player getOwner() {

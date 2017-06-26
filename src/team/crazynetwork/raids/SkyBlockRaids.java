@@ -16,6 +16,7 @@ public class SkyBlockRaids extends JavaPlugin {
     private static SkyBlockRaids self;
 	
     public static Hashtable<String,FileConfiguration> config = new Hashtable<>();
+	
     public static List<Island> islands = new ArrayList<>();
     public static HashMap<String, Island> playerIsland = new HashMap<>();
 
@@ -29,7 +30,6 @@ public class SkyBlockRaids extends JavaPlugin {
 		self = this; //A workaround as static vars normally do not allow this.
 		
 		Bukkit.getPluginCommand("island").setExecutor(new IslandCommand());
-
         Bukkit.getServer().getPluginManager().registerEvents(new Crook(), this); //Adds the Crook Listener
         
         getServer().addRecipe(Crook.recipe()[0]); //Both crook recipes

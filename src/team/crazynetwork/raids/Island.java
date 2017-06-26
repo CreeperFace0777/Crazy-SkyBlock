@@ -1,35 +1,37 @@
 package team.crazynetwork.raids;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+
 public class Island {
-    private int x, y, z; //The coordinates of the island
-    private Long raidableTime; //When it will be raidable
+    public int x, y, z; //The coordinates of the island
+    public Long raidableTime; //When it will be raidable
     private Player owner; //The owner
-    private List<Player> members; //Members of the island
-    private double balance; //Island Balance
+    public List<Player> members; //Members of the island
+    public double balance; //Island Balance
 
     public Island(int x, int y, int z, Player owner) { //Constructor. Initializes everything from given vars. This is for NEW islands
         x = this.x;
         y = this.y;
         z = this.z;
-        raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay"); //Gets current time and adds the delay to raid to it.
+        raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay","islands"); //Gets current time and adds the delay to raid to it.
         this.balance = 0;
         this.members = new ArrayList<>();
 
         SkyBlockRaids.islands.add(this);
-        SkyBlockRaids.playerIsland.put(owner, this);
+        SkyBlockRaids.playerIsland.put(owner.getUniqueId().toString(), this);
     }
 
-    public Island(Player owner) {
-        ConfigurationSection pIsland = SkyBlockRaids.getPlugin().islandConfig.getConfigurationSection(owner.getUniqueId().toString());
+    public Island(String ownerName) {
+    	FileConfiguration config = (FileConfiguration) SkyBlockRaids.getPlugin().getSettings(null,"islands");
+        ConfigurationSection pIsland = config.getConfigurationSection(ownerName);
         try {
             this.x = pIsland.getInt("x");
             this.y = pIsland.getInt("y");
@@ -42,13 +44,14 @@ public class Island {
             Bukkit.getLogger().severe("Config for " + owner.getName() + " is set out incorrectly");
         }
         SkyBlockRaids.islands.add(this);
-        SkyBlockRaids.playerIsland.put(owner, this);
+        SkyBlockRaids.playerIsland.put(owner.getUniqueId().toString(), this);
+        raidableTime = new Date().getTime() + (Long) SkyBlockRaids.getPlugin().getSettings("raidDelay","islands"); //Gets current time and adds the delay to raid to it.
+    
     }
 
     public Player getOwner() {
         return owner; //Returns owner. Duh.
     }
-
 
     public List<Player> getMembers() {
         return members; //Get the members of the island

@@ -2,6 +2,7 @@ package team.crazynetwork.raids.commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -156,10 +157,14 @@ public class IslandCommand implements CommandExecutor {
 			}
 			if (args.length == 3) {
 				Player t = pl.getServer().getPlayer(args[2]);
+
 				if (t != null && t.isOnline()) {
-					if(addMember.containsValue(p)){
-						//need to finish up the code.
-					}
+					if(addMember.containsValue(p))
+						if(SkyBlockRaids.playerIsland.get(t) != null) {
+							List<Player> members =SkyBlockRaids.playerIsland.get(t).getMembers();
+							members.add(p);
+							SkyBlockRaids.playerIsland.get(t).setMembers(members);
+						}
 				}
 			}
 			return true;

@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -16,9 +17,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class SilkWorm implements Listener {
-	List<Location> isSilkwormed = new ArrayList<Location>(); 
+	private ArrayList<Location> isSilkwormed = new ArrayList<Location>();
 	
+	public ArrayList<Location> leafwormed(){
+		return isSilkwormed;
+	}
+
 	public static FurnaceRecipe recipe() {
+
 		ItemStack silkworm = new ItemStack(Material.STRING, 1);
 		ItemMeta silkmeta = silkworm.getItemMeta();
 		silkmeta.setDisplayName("§r§cSilkworm");
@@ -41,18 +47,22 @@ public class SilkWorm implements Listener {
 	public void onTreeInfect(PlayerInteractEvent e) {
 		if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			Block b = e.getClickedBlock();
-			if(b.getType().equals(Material.LEAVES) || b.getType().equals(Material.LEAVES_2)){
+			Player p = e.getPlayer();
+			if (b.getType().equals(Material.LEAVES) || b.getType().equals(Material.LEAVES_2)) {
 				try {
-					if(e.getPlayer().getItemInHand().equals(Material.STRING) && e.getPlayer().getItemInHand().hasItemMeta() &&
-							e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.stripColor("Silkworm")) && 
-								e.getPlayer().getItemInHand().getItemMeta().getLore().size() == 2 && 
-									e.getPlayer().getItemInHand().getItemMeta().getLore().get(0).equals(ChatColor.stripColor("Right click me on a leaf block"
-											+ "to infect it"))){
-						//TODO
+					if (p.getItemInHand().equals(Material.STRING) && p.getItemInHand().hasItemMeta()
+							&& p.getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.stripColor("Silkworm"))
+							&& p.getItemInHand().getItemMeta().getLore().size() == 2
+							&& p.getItemInHand().getItemMeta().getLore().get(0)
+									.equals(ChatColor.stripColor("Right click me on a leaf block" + "to infect it"))) {
+						p.sendMessage("§7The §2Leaf §7has been infected!");
+						b.setType(Material.WEB);
+						isSilkwormed.add(b.getLocation());
+
 						return;
 					}
-						
-				}catch(NullPointerException ex){
+
+				} catch (NullPointerException ex) {
 					return;
 				}
 			} else {
@@ -62,35 +72,35 @@ public class SilkWorm implements Listener {
 		}
 		return;
 	}
-	@EventHandler //made 2 event method to make it cleaner
-	public void onEat(PlayerInteractEvent e){
-		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+
+	@EventHandler // made 2 event method to make it cleaner
+	public void onEat(PlayerInteractEvent e) {
+		if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			try {
-				if(e.getPlayer().getItemInHand().equals(Material.STRING) && e.getPlayer().getItemInHand().hasItemMeta() &&
-						e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals(ChatColor.stripColor("Cooked Silkworm")) && 
-							e.getPlayer().getItemInHand().getItemMeta().getLore().size() == 1 && 
-								e.getPlayer().getItemInHand().getItemMeta().getLore().get(0).equals(ChatColor.stripColor("Eat me to restore 2 hunger."))){
+				if (e.getPlayer().getItemInHand().equals(Material.STRING) && e.getPlayer().getItemInHand().hasItemMeta()
+						&& e.getPlayer().getItemInHand().getItemMeta().getDisplayName()
+								.equals(ChatColor.stripColor("Cooked Silkworm"))
+						&& e.getPlayer().getItemInHand().getItemMeta().getLore().size() == 1
+						&& e.getPlayer().getItemInHand().getItemMeta().getLore().get(0)
+								.equals(ChatColor.stripColor("Eat me to restore 2 hunger."))) {
 					e.setCancelled(true);
-					if(e.getPlayer().getFoodLevel() == 19){
+					if (e.getPlayer().getFoodLevel() == 19) {
 						e.getPlayer().setFoodLevel(20);
-					}
-					else{
+					} else {
 						e.getPlayer().setFoodLevel(e.getPlayer().getFoodLevel() + 2);
 					}
-					e.getPlayer().getItemInHand().setAmount(e.getPlayer().getItemInHand().getAmount() -1);
-					if(e.getPlayer().getFoodLevel() == 20){
-						e.getPlayer().sendMessage("§2You are at full hunger already.");
+					if (e.getPlayer().getFoodLevel() == 20) {
+						e.getPlayer().sendMessage("§cYou are at full hunger already.");
+						return;
 					}
-					return;
+					e.getPlayer().getItemInHand().setAmount(e.getPlayer().getItemInHand().getAmount() - 1);
 				}
-					
-			}catch(NullPointerException ex){
+
+			} catch (NullPointerException ex) {
 				return;
 			}
 		}
-				
+
 	}
-	
-	
-	
+
 }

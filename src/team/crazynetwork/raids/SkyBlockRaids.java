@@ -15,61 +15,79 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SkyBlockRaids extends JavaPlugin {
-    private static SkyBlockRaids self;	
-    FileConfiguration islandConfig;
-    File iFile;
+	private static SkyBlockRaids self;
+	FileConfiguration islandConfig;
+	File iFile;
 
-    public static List<Island> islands = new ArrayList<>();
-    public static HashMap<Player, Island> playerIsland = new HashMap<>();
+	public static List<Island> islands = new ArrayList<>();
+	public static HashMap<Player, Island> playerIsland = new HashMap<>();
 
-    public static SkyBlockRaids getPlugin() { //Give other classes direct access to the plugin's methods.
-        return self;
-    }
+	public static SkyBlockRaids getPlugin() { // Give other classes direct
+												// access to the plugin's
+												// methods.
+		return self;
+	}
 
-    @Override
+	@Override
     public void onEnable() {
 
         self = this; //A workaround as static vars normally do not allow this.
+        
+        
+        //Onenable for spreading wilk worms
+        
+        
 
         Bukkit.getServer().getPluginManager().registerEvents(new Crook(), this); //Adds the Crook Listener
         getServer().addRecipe(Crook.recipe()[0]); //Both crook recipes
         getServer().addRecipe(Crook.recipe()[1]);
-        getServer().addRecipe(SilkWorm.recipe());
+        getServer().addRecipe(SilkWorm.recipe ());
         //TODO: Handle loading islands from islands.yml
     }
 
-    public Object getSettings(String settingName) {
-        if (islandConfig.get(settingName) != null) {
-            return islandConfig.get(settingName);
-        }
-        return null;
+	public Object getSettings(String settingName) {
+		if (islandConfig.get(settingName) != null) {
+			return islandConfig.get(settingName);
+		}
+		return null;
 
-    }
+	}
 
-    @Override
-    public void onDisable() {
-        //TODO: Handle saving islands
-    }
+	@Override
+	public void onDisable() {
+		// TODO: Handle saving islands
+	}
 
-    private void setupFiles() {
-        iFile = new File(getDataFolder(), "islands.yml");
+	private void setupFiles() {
+		iFile = new File(getDataFolder(), "islands.yml");
 
-        if (!getDataFolder().exists()) { //Check if the plugin folder (where the config and other files are stored) exists.
-            try { //If it doesn't then try create it
-                getDataFolder().createNewFile();
-            } catch (IOException ex) { //If it can't create a file, something is seriously wrong.
-                getLogger().severe("Couldn't create plugin folder!");
-            }
-        }
+		if (!getDataFolder().exists()) { // Check if the plugin folder (where
+											// the config and other files are
+											// stored) exists.
+			try { // If it doesn't then try create it
+				getDataFolder().createNewFile();
+			} catch (IOException ex) { // If it can't create a file, something
+										// is seriously wrong.
+				getLogger().severe("Couldn't create plugin folder!");
+			}
+		}
 
-        if (!iFile.exists()) { //If the islands.yml file doesn't exist.
-            try {
-                iFile.createNewFile(); //Try create it
-            } catch (IOException e) {
-                getLogger().severe("Couldn't create islands.yml!"); //Couldn't create the islands.yml files
-            }
-        }
+		if (!iFile.exists()) { // If the islands.yml file doesn't exist.
+			try {
+				iFile.createNewFile(); // Try create it
+			} catch (IOException e) {
+				getLogger().severe("Couldn't create islands.yml!"); // Couldn't
+																	// create
+																	// the
+																	// islands.yml
+																	// files
+			}
+		}
 
-        islandConfig = YamlConfiguration.loadConfiguration(iFile); //Make the islandConfig equal the islands.yml file.
-    }
+		islandConfig = YamlConfiguration.loadConfiguration(iFile); // Make the
+																	// islandConfig
+																	// equal the
+																	// islands.yml
+																	// file.
+	}
 }

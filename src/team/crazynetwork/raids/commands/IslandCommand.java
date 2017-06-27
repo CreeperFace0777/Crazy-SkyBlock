@@ -18,7 +18,7 @@ public class IslandCommand implements CommandExecutor {
 
 	Plugin pl;
 	Island i;
-	private HashMap<Player, Player> addMember = new HashMap<Player, Player>();
+	private HashMap<String, String> addMember = new HashMap<String, String>();
 
 	public IslandCommand(SkyBlockRaids self) {
 		pl = self;
@@ -114,7 +114,7 @@ public class IslandCommand implements CommandExecutor {
 							+ "You have 60 seconds to accept this invitation.");
 					t.playSound(t.getLocation(), Sound.ORB_PICKUP, 10, 10);
 					p.sendMessage("¡ìaA request has been sent to " + t.getName());
-					addMember.put(p, t);
+					addMember.put(p.getUniqueId().toString(), t.getUniqueId().toString());
 					pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 						public void run() {
 							if (addMember.containsValue(t)) {
@@ -151,7 +151,7 @@ public class IslandCommand implements CommandExecutor {
 			if (args.length == 3) {
 				Player t = pl.getServer().getPlayer(args[2]);
 				if (t != null && t.isOnline()) {
-					if(addMember.containsValue(p)){
+					if(addMember.containsValue(p.getUniqueId().toString())){
 						//need to finish up the code.
 					}
 				}

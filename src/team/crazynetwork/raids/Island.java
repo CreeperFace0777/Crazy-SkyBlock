@@ -3,7 +3,6 @@ package team.crazynetwork.raids;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,7 +13,7 @@ public class Island {
     public int x, y, z; //The coordinates of the island
     public Long raidableTime; //When it will be raidable
     private Player owner; //The owner
-    public List<Player> members; //Members of the island
+    public List<String> members; //Members of the island
     public double balance; //Island Balance
 
     public Island(int x, int y, int z, Player owner) { //Constructor. Initializes everything from given vars. This is for NEW islands
@@ -38,7 +37,7 @@ public class Island {
             this.z = pIsland.getInt("z");
             this.raidableTime = pIsland.getLong("raidableTime");
             for (String member : pIsland.getStringList("members"))
-                this.members.add(Bukkit.getPlayer(UUID.fromString(member)));
+                this.members.add(member);
             this.balance = pIsland.getDouble("balance");
         } catch (NullPointerException e) {
             Bukkit.getLogger().severe("Config for " + owner.getName() + " is set out incorrectly");
@@ -53,11 +52,11 @@ public class Island {
         return owner; //Returns owner. Duh.
     }
 
-    public List<Player> getMembers() {
+    public List<String> getMembers() {
         return members; //Get the members of the island
     }
 
-    public void setMembers(List<Player> members) {
+    public void setMembers(List<String> members) {
         this.members = members; //Set the members of the island. Main Use: /is add/remove command
     }
 

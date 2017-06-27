@@ -44,10 +44,15 @@ public class SkyBlockRaids extends JavaPlugin {
     }
 	
 	public Object getSettings(String settingName,String configName){
-		configName = configName.split(".")[0];
+		if (configName.contains(".")){
+			configName = configName.split(".")[0];
+		}
 		if (settingName == null){
 			return config.get(configName);
 		}
-		return config.get(configName).get(settingName);
+		if (config.containsKey(configName)){
+			return config.get(configName).get(settingName);
+		}
+		return null;
 	}
 }

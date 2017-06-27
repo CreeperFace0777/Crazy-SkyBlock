@@ -15,6 +15,8 @@ public class IOSystem {
 				SkyBlockRaids.getPlugin().getDataFolder().createNewFile();
 			} catch (IOException ex) { //If it can't create a file, something is seriously wrong.
 				SkyBlockRaids.getPlugin().getLogger().severe("Couldn't create plugin folder!");
+				SkyBlockRaids.getPlugin().getPluginLoader().disablePlugin(SkyBlockRaids.getPlugin()); //Everything is not loaded. Just give up.
+				return; //DO NOT CONTINUE. Just in case the code continued to run after disable.
 			}
 		}
 		loadConfig("islands.yml");
@@ -32,7 +34,10 @@ public class IOSystem {
 				return; //Do not continue with code if the file cannot be created.
 			}
 		}
-		SkyBlockRaids.config.put(configName.split(".")[0],
+		if (configName.contains(".")){
+			configName = configName.split(".")[0];
+		}
+		SkyBlockRaids.config.put(configName,
 				(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
 	}
 	
@@ -62,6 +67,20 @@ public class IOSystem {
 			section.set("balance",SkyBlockRaids.playerIsland.get(playerId).balance);
 			section.set("raidableTime",SkyBlockRaids.playerIsland.get(playerId).raidableTime);
 			section.set("members",SkyBlockRaids.playerIsland.get(playerId).members);
+		}
+		File islandConfig = new File(SkyBlockRaids.getPlugin().getDataFolder(),"islands.yml");
+		if (!islandConfig.exists()){
+			try {
+				islandConfig.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+		try {
+			config.save(islandConfig);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

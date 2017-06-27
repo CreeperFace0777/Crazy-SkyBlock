@@ -1,6 +1,5 @@
 package team.crazynetwork.raids.commands;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -24,54 +23,50 @@ public class IslandCommand implements CommandExecutor {
 	public IslandCommand(SkyBlockRaids self) {
 		pl = self;
 	}
-
+	
+	private void sendCredit(CommandSender sender,Runnable moreInfo){
+		sender.sendMessage("¡ì3¡ìm--------------------");
+		sender.sendMessage("¡ìc¡ìlSky Block Raids");
+		sender.sendMessage("¡ì9¡ìlAuthors:");
+		sender.sendMessage("¡ì9¡ìk¡ìl::¡ìr ¡ìa¡ìlCreeperFace0777 ¡ì9¡ìk¡ìl::¡ìr");
+		sender.sendMessage("¡ì9¡ìk¡ìl::¡ìr   ¡ìb¡ìlchanbakjsd    ¡ì9¡ìk¡ìl::¡ìr");
+		sender.sendMessage("¡ì9¡ìk¡ìl::¡ìr ¡ìe¡ìlSenpaiOfficial  ¡ì9¡ìk¡ìl::¡ìr");
+		sender.sendMessage("¡ì3¡ìm--------------------");
+		pl.getServer().getScheduler().scheduleSyncDelayedTask(pl,moreInfo,20L);
+	}
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (!(sender instanceof Player)) {
 			/*
 			 * showing developer info and showing help info after a second not
-			 * to bombard the player ;D
+			 * to bombard the console ;D
 			 */
-			sender.sendMessage("Â§3Â§m--------------------");
-			sender.sendMessage("Â§cÂ§lSky Block Raids");
-			sender.sendMessage("Â§9Â§lAuthors:");
-			sender.sendMessage("Â§9Â§kÂ§l::Â§r Â§aÂ§lCreeperFace0777 Â§9Â§kÂ§l::Â§r");
-			sender.sendMessage("Â§9Â§kÂ§l::Â§r   Â§bÂ§lchanbakjsd    Â§9Â§kÂ§l::Â§r");
-			sender.sendMessage("Â§9Â§kÂ§l::Â§r Â§eÂ§lSenpaiOfficial  Â§9Â§kÂ§l::Â§r");
-			sender.sendMessage("Â§3Â§m--------------------");
-			pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
+			
+			sendCredit(sender,new Runnable() {
 				public void run() {
-					sender.sendMessage("Â§3Â§m--------------------");
-					sender.sendMessage("Â§6Â§lFor more information");
-					sender.sendMessage("Â§6Â§lon SkyBlockRaids, type");
-					sender.sendMessage("Â§9Â§l/island help");
-					sender.sendMessage("Â§3Â§m--------------------");
+					sender.sendMessage("¡ì3¡ìm--------------------");
+					sender.sendMessage("¡ì6¡ìlFor more information");
+					sender.sendMessage("¡ì6¡ìlon SkyBlockRaids, type");
+					sender.sendMessage("¡ì9¡ìl/island help");
+					sender.sendMessage("¡ì3¡ìm--------------------");
 				}
-			}, 20L);
+			});
 			return true;
 		}
 
 		Player p = (Player) sender;
 		if (!(p.hasPermission("skyraids.island")) || args[0].equalsIgnoreCase("dev")
 				|| args[0].equalsIgnoreCase("developer")) {
-			// Show credits
-			p.sendMessage("Â§3Â§m--------------------");
-			p.sendMessage("Â§cÂ§lSky Block Raids");
-			p.sendMessage("Â§9Â§lAuthors:");
-			p.sendMessage("Â§9Â§kÂ§l::Â§r Â§aÂ§lCreeperFace0777 Â§9Â§kÂ§l::Â§r");
-			p.sendMessage("Â§9Â§kÂ§l::Â§r   Â§bÂ§lchanbakjsd    Â§9Â§kÂ§l::Â§r");
-			p.sendMessage("Â§9Â§kÂ§l::Â§r Â§eÂ§lSenpaiOfficial  Â§9Â§kÂ§l::Â§r");
-			p.sendMessage("Â§3Â§m--------------------");
-
-			pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
+			sendCredit(sender,new Runnable() {
 				public void run() {
-					sender.sendMessage("Â§3Â§m--------------------");
-					sender.sendMessage("Â§6Â§lNo permission for SkyBlockRaids");
-					sender.sendMessage("Â§6Â§lContact an Administrator, and ask for Â§2skyraids.island Â§6Â§lpermission.");
-					sender.sendMessage("Â§3Â§m--------------------");
+					sender.sendMessage("¡ì3¡ìm--------------------");
+					sender.sendMessage("¡ì6¡ìlNo permission for SkyBlockRaids");
+					sender.sendMessage("¡ì6¡ìlContact an Administrator, and ask for ¡ì2skyraids.island ¡ì6¡ìlpermission.");
+					sender.sendMessage("¡ì3¡ìm--------------------");
 				}
-			}, 20L);
+			});
 			return true;
 		}
 
@@ -100,14 +95,13 @@ public class IslandCommand implements CommandExecutor {
 			 * 
 			 */
 			if (args.length < 3) {
-				p.sendMessage("Â§cInvalid format. - Too few arguments");
-				p.sendMessage("Â§9/invite add [Player]");
+				p.sendMessage("¡ìcInvalid format. - Too few arguments");
+				p.sendMessage("¡ì9/invite add [Player]");
 				return true;
 			}
 			if (args.length > 3) {
-				p.sendMessage("Â§cInvalid format. - Too many arguments");
-				p.sendMessage("Â§cInvalid format.");
-				p.sendMessage("Â§9/invite add [Player]");
+				p.sendMessage("¡ìcInvalid format. - Too many arguments");
+				p.sendMessage("¡ì9/invite add [Player]");
 				return true;
 			}
 			if (args.length == 3) {
@@ -115,11 +109,11 @@ public class IslandCommand implements CommandExecutor {
 				if (t != null && p.isOnline()) {
 					t.sendMessage(
 							ChatColor.YELLOW + p.getName() + ChatColor.GOLD + "has invited you to join their island!");
-					t.sendMessage(ChatColor.GOLD + "Type Â§9/island accept " + ChatColor.YELLOW + p.getName()
+					t.sendMessage(ChatColor.GOLD + "Type ¡ì9/island accept " + ChatColor.YELLOW + p.getName()
 							+ ChatColor.GOLD + "to join their island!\n" + ChatColor.GRAY
 							+ "You have 60 seconds to accept this invitation.");
 					t.playSound(t.getLocation(), Sound.ORB_PICKUP, 10, 10);
-					p.sendMessage("Â¶aA request has been sent to " + t.getName());
+					p.sendMessage("¡ìaA request has been sent to " + t.getName());
 					addMember.put(p, t);
 					pl.getServer().getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
 						public void run() {
@@ -130,7 +124,7 @@ public class IslandCommand implements CommandExecutor {
 					}, 20L * 60L);
 					return true;
 				} else {
-					p.sendMessage("Â§cThat player is not found.");
+					p.sendMessage("¡ìcThat player is not found.");
 					return true;
 				}
 			}
@@ -145,13 +139,13 @@ public class IslandCommand implements CommandExecutor {
 		if (args[0].equalsIgnoreCase("accept")) {
 
 			if (args.length < 3) {
-				p.sendMessage("Â§cInvalid format. - Too few arguments");
-				p.sendMessage("Â§9/invite accept [Player]");
+				p.sendMessage("¡ìcInvalid format. - Too few arguments");
+				p.sendMessage("¡ì9/invite accept [Player]");
 				return true;
 			}
 			if (args.length > 3) {
-				p.sendMessage("Â§cInvalid format. - Too many arguments");
-				p.sendMessage("Â§9/invite accept [Player]");
+				p.sendMessage("¡ìcInvalid format. - Too many arguments");
+				p.sendMessage("¡ì9/invite accept [Player]");
 				return true;
 			}
 			if (args.length == 3) {

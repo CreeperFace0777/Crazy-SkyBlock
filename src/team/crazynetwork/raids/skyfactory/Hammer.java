@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Hammer implements Listener {
 
@@ -112,12 +113,17 @@ public class Hammer implements Listener {
                 for (ShapedRecipe s : sA)
                     if (s.getResult() == e.getInventory().getResult()) {
                         e.setCancelled(true);
+                        ItemStack i = e.getInventory().getResult();
+                        ItemMeta m = i.getItemMeta();
+                        List<String> l = m.getLore();
+                        l.add(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime());
+                        m.setLore(l);
+                        i.setItemMeta(m);
+                        e.getInventory().setResult(i);
                         e.getWhoClicked().sendMessage(ChatColor.RED + "You can only craft one at a time!");
                         if (e.getWhoClicked() instanceof Player) {
                             ((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.VILLAGER_DEATH, 1L, 1L);
                         }
-                        //No point looking through the rest of the loops
-                        return;
                     }
         }
     }

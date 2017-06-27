@@ -22,7 +22,7 @@ public class Crook implements Listener {
         ItemStack crookItem = new ItemStack(Material.STICK, 1);
         ItemMeta crookMeta = crookItem.getItemMeta();
         crookMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.WHITE + "Crook " + ChatColor.DARK_GREEN + "64/64"); //Display name as: Crook 64/64
-        crookMeta.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Increases chance of getting a sapling drop", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "64/64", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
+        crookMeta.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Increases chance of getting a sapling drop", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "64/64"));
         crookItem.setItemMeta(crookMeta); //Setting the name and lore
         ShapedRecipe crook1 = new ShapedRecipe(crookItem).shape("ss ", " s ", " s ").setIngredient('s', Material.STICK); //Initialing recipe
         ShapedRecipe crook2 = new ShapedRecipe(crookItem).shape(" ss", " s ", " s ").setIngredient('s', Material.STICK); //Initialing alternate recipe
@@ -87,12 +87,14 @@ public class Crook implements Listener {
 
     @EventHandler
     public void onItemCraft(CraftItemEvent e) {
-        if (e.getInventory().getResult().getAmount() > 1 && e.getInventory().getResult() == recipe()[0].getResult()) {
-            e.setCancelled(true);
-            e.getWhoClicked().sendMessage(ChatColor.RED + "You can only craft one at a time!");
-            if (e.getWhoClicked() instanceof Player) {
-                ((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.VILLAGER_DEATH, 1L, 1L);
-            }
+        if(e.getInventory().getResult() == recipe()[0].getResult()) { //Doesn't go past this line! //FIXME
+            ItemStack i = e.getInventory().getResult();
+            ItemMeta m = i.getItemMeta();
+            List<String> l = m.getLore();
+            l.add(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime());
+            m.setLore(l);
+            i.setItemMeta(m);
+            e.getInventory().setResult(i);
         }
     }
 }

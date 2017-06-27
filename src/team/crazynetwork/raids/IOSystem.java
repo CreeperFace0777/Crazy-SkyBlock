@@ -31,11 +31,9 @@ public class IOSystem {
 			}
 		}
 		if(configName.contains("."))
-		SkyBlockRaids.config.put(configName.split(".")[0],
-				(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
-		else SkyBlockRaids.config.put(configName,
-			(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
-
+			configName = configName.substring(0, configName.length() - 4);
+		SkyBlockRaids.config.put(configName,
+				YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName + ".yml")));
 	}
 	
 	public static void loadIslands(FileConfiguration config){

@@ -46,17 +46,18 @@ public class SkyBlockRaids extends JavaPlugin {
 				for (int i = 0; i < sw.leafwormed().size(); i++) {
 
 					Location l = sw.leafwormed().get(i);
-					Location l1 = sw.leafwormed().get(i).add(1, 0, 0);
-					Location l2 = sw.leafwormed().get(i).add(-1, 0, 0);
-					Location l3 = sw.leafwormed().get(i).add(0, 0, 1);
-					Location l4 = sw.leafwormed().get(i).add(0, 0, -1); //Getting the blocks adjacent to the cobweb
-					Location l5 = sw.leafwormed().get(i).add(0, 1, 0);
-					Location l6 = sw.leafwormed().get(i).add(0, -1, 0);
+					Location l1 = l.add(1, 0, 0);
+					Location l2 = l.add(-1, 0, 0);
+					Location l3 = l.add(0, 0, 1);
+					Location l4 = l.add(0, 0, -1); // Getting the blocks
+													// adjacent to the cobweb
+					Location l5 = l.add(0, 1, 0);
+					Location l6 = l1.add(0, -1, 0);
 					ArrayList<Location> possibilities = new ArrayList<Location>();
 					possibilities.add(l1);
 					possibilities.add(l2);
 					possibilities.add(l3);
-					possibilities.add(l4); //Adding the locations to a list
+					possibilities.add(l4); // Adding the locations to a list
 					possibilities.add(l5);
 					possibilities.add(l6);
 					Collections.shuffle(possibilities);
@@ -68,9 +69,9 @@ public class SkyBlockRaids extends JavaPlugin {
 						third.add("2");
 						third.add("3");
 						Collections.shuffle(third);
-						if(third.get(2) == "1"){
+						if (third.get(2) == "1") { //making a random selection in 1/3 chance if it will actually spread 
 							final_.getBlock().setType(Material.WEB);
-							sw.leafwormed().add(final_);
+							sw.leafwormed().add(final_); // Adding to the arraylist
 						}
 					} else {
 						break;

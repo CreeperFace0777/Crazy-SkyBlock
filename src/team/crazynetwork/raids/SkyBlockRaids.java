@@ -1,13 +1,15 @@
 package team.crazynetwork.raids;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import team.crazynetwork.raids.commands.IslandCommand;
 
-import java.io.File;
-import java.io.IOException;
+import team.crazynetwork.raids.commands.IslandCommand;
+import team.crazynetwork.raids.oregen.OreGen;
 
 public class SkyBlockRaids extends JavaPlugin {
 	private static SkyBlockRaids self;
@@ -17,8 +19,11 @@ public class SkyBlockRaids extends JavaPlugin {
 	public void onEnable() { //Runs on startup AND when server is reloaded. DO NOT assume 0 players.
 		self = this; //A workaround as static vars normally do not allow this.
 		Bukkit.getPluginCommand("island").setExecutor(new IslandCommand(self));
+		Bukkit.getPluginCommand("oregen").setExecutor(new OreGen());
 		//Please remember to add the /raid command! That will not be part of the island command! 
 		//Please remember to add the /admin (idk) command! That will not be part of the island/raid command! 
+		Bukkit.getServer().getPluginManager().registerEvents(new OreGen(), this);
+		
 	}
 	
 	public void onDisable(){ //Save all the file here when the plugin is disabled.

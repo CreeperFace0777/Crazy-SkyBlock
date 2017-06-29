@@ -18,7 +18,7 @@ public class IOSystem {
 		loadConfig("islands.yml");
 		loadConfig("shop.yml");
 	}
-	
+
 	private static void loadConfig(String configName){
 		SkyBlockRaids.getPlugin();
 		File file = new File(SkyBlockRaids.getPlugin().getDataFolder(),configName);
@@ -33,9 +33,9 @@ public class IOSystem {
 		if(configName.contains("."))
 			configName = configName.substring(0, configName.length() - 4);
 		SkyBlockRaids.config.put(configName,
-				YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName + ".yml")));
+			YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName + ".yml")));
 	}
-	
+
 	public static void loadIslands(FileConfiguration config){
 		for (String sectionName:config.getKeys(false)){
 			if (config.isConfigurationSection(sectionName)){
@@ -46,7 +46,7 @@ public class IOSystem {
 			}
 		}
 	}
-	
+
 	public static void saveFiles(){
 		SkyBlockRaids.getPlugin(); //To access playerIsland in a "static" way
 		setupFiles(); //Reload config

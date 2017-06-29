@@ -2,10 +2,13 @@ main: team.crazynetwork.raids.SkyBlockRaids
 name: SkyBlockRaids
 author: [SenpaiOfficial, CreeperFace0777, chanbakjsd]
 version: 1.0
-depends: ASkyblock
 
 commands:
   island:
-    aliases: is
+    aliases: [is]
     usage: /<command>
     description: Skyblock Island Command
+
+permissions:
+    skyraids.island:
+        description: Main SkyBlockRaids Permission.

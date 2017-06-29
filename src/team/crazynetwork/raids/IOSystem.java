@@ -11,18 +11,12 @@ public class IOSystem {
 
 	public static void setupFiles() {
 		if (!SkyBlockRaids.getPlugin().getDataFolder().exists()){
-			try { //If it doesn't then try create it
-				SkyBlockRaids.getPlugin().getDataFolder().createNewFile();
-			} catch (IOException ex) { //If it can't create a file, something is seriously wrong.
-				SkyBlockRaids.getPlugin().getLogger().severe("Couldn't create plugin folder!");
-				SkyBlockRaids.getPlugin().getPluginLoader().disablePlugin(SkyBlockRaids.getPlugin()); //Everything is not loaded. Just give up.
-				return; //DO NOT CONTINUE. Just in case the code continued to run after disable.
-			}
+			SkyBlockRaids.getPlugin().getDataFolder().mkdir();
 		}
 		loadConfig("islands.yml");
 		loadConfig("shop.yml");
 	}
-	
+
 	private static void loadConfig(String configName){
 		SkyBlockRaids.getPlugin();
 		File file = new File(SkyBlockRaids.getPlugin().getDataFolder(),configName);
@@ -40,7 +34,7 @@ public class IOSystem {
 		SkyBlockRaids.config.put(configName,
 				(FileConfiguration)YamlConfiguration.loadConfiguration(new File(SkyBlockRaids.getPlugin().getDataFolder(),configName)));
 	}
-	
+
 	public static void loadIslands(FileConfiguration config){
 		for (String sectionName:config.getKeys(false)){
 			if (config.isConfigurationSection(sectionName)){
@@ -51,7 +45,7 @@ public class IOSystem {
 			}
 		}
 	}
-	
+
 	public static void saveFiles(){
 		SkyBlockRaids.getPlugin(); //To access playerIsland in a "static" way
 		setupFiles(); //Reload config

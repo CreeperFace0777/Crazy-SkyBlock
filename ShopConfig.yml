@@ -1,0 +1,26 @@
+root:
+  name: "¡ìbShop ¡ì0- ¡ì4CrazyPVP"
+  option1:
+    name: "Subcategory 1"
+    type: "openSub"
+    sub: "cat1"
+  option2:
+    name: "Subcategory 2"
+    type: "openSub"
+    sub: "cat2"
+cat1:
+  name: "Category 1"
+  option1:
+    name: "Block 1"
+    type: "item"
+    price: "5" #Cost/item
+  option2:
+    name: "Block 2"
+    type: "item"
+    price: "10"
+cat2:
+  name: "Category 2"
+  option1:
+    name: "Item 1"
+    type: "item"
+    price: "20"

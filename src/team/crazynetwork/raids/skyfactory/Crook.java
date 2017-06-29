@@ -1,9 +1,13 @@
 package team.crazynetwork.raids.skyfactory;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -11,11 +15,6 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 public class Crook implements Listener {
     public static ShapedRecipe[] recipe() {

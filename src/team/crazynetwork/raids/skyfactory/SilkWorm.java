@@ -1,6 +1,7 @@
 package team.crazynetwork.raids.skyfactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -15,6 +16,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import team.crazynetwork.raids.SkyBlockRaids;
 
 public class SilkWorm implements Listener {
 	private ArrayList<Location> isSilkwormed = new ArrayList<Location>();
@@ -101,6 +104,48 @@ public class SilkWorm implements Listener {
 			}
 		}
 
+	}
+	
+	public Runnable getInfestRunnable(){
+		return new Runnable() {
+			public void run() {
+
+				for (int i = 0; i < SkyBlockRaids.getPlugin().sw.leafwormed().size(); i++) {
+
+					Location l = SkyBlockRaids.getPlugin().sw.leafwormed().get(i);
+					Location l1 = l.add(1, 0, 0);
+					Location l2 = l.add(-1, 0, 0);
+					Location l3 = l.add(0, 0, 1);
+					Location l4 = l.add(0, 0, -1); // Getting the blocks
+													// adjacent to the cobweb
+					Location l5 = l.add(0, 1, 0);
+					Location l6 = l1.add(0, -1, 0);
+					ArrayList<Location> possibilities = new ArrayList<Location>();
+					possibilities.add(l1);
+					possibilities.add(l2);
+					possibilities.add(l3);
+					possibilities.add(l4); // Adding the locations to a list
+					possibilities.add(l5);
+					possibilities.add(l6);
+					Collections.shuffle(possibilities);
+					Location final_ = possibilities.get(2);
+					if (final_.getBlock().getType().equals(Material.LEAVES)
+							|| final_.getBlock().getType().equals(Material.LEAVES_2)) {
+						ArrayList<String> third = new ArrayList<String>();
+						third.add("1");
+						third.add("2");
+						third.add("3");
+						Collections.shuffle(third);
+						if (third.get(2) == "1") { //making a random selection in 1/3 chance if it will actually spread 
+							final_.getBlock().setType(Material.WEB);
+							SkyBlockRaids.getPlugin().sw.leafwormed().add(final_); // Adding to the arraylist
+						}
+					} else {
+						break;
+					}
+				}
+			}
+		};
 	}
 
 }

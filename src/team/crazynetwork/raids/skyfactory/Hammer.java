@@ -26,35 +26,35 @@ public class Hammer implements Listener {
         ItemStack hammerItem1 = new ItemStack(Material.WOOD_PICKAXE, 1);
         ItemMeta hammerMeta1 = hammerItem1.getItemMeta();
         hammerMeta1.setDisplayName(String.format(hammerName, "Wooden", 64, 64)); //Display name as: Wooden Hammer 64/64
-        hammerMeta1.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobble into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "128/128", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
+        hammerMeta1.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobblestone into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "128/128", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
         hammerItem1.setItemMeta(hammerMeta1);
 
         //Stone Hammer Recipe
         ItemStack hammerItem2 = new ItemStack(Material.STONE_PICKAXE, 1);
         ItemMeta hammerMeta2 = hammerItem2.getItemMeta();
         hammerMeta2.setDisplayName(String.format(hammerName, "Stone", 80, 80)); //Display name as: Stone Hammer 80/80
-        hammerMeta2.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobble into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "80/80", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
+        hammerMeta2.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobblestone into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "80/80", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
         hammerItem2.setItemMeta(hammerMeta2);
 
         //Iron Hammer Recipe
         ItemStack hammerItem3 = new ItemStack(Material.IRON_PICKAXE, 1);
         ItemMeta hammerMeta3 = hammerItem3.getItemMeta();
         hammerMeta3.setDisplayName(String.format(hammerName, "Iron", 96, 96)); //Display name as: Iron Hammer 96/96
-        hammerMeta3.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobble into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "96/96", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
+        hammerMeta3.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobblestone into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "96/96", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
         hammerItem3.setItemMeta(hammerMeta3);
 
         //Golden Hammer Recipe
         ItemStack hammerItem4 = new ItemStack(Material.GOLD_PICKAXE, 1);
         ItemMeta hammerMeta4 = hammerItem4.getItemMeta();
         hammerMeta4.setDisplayName(String.format(hammerName, "Golden", 64, 64)); //Display name as: Golden Hammer 64/64
-        hammerMeta4.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobble into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "64/64", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
+        hammerMeta4.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobblestone into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "64/64", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
         hammerItem4.setItemMeta(hammerMeta4);
 
         //Diamond Hammer Recipe
         ItemStack hammerItem5 = new ItemStack(Material.DIAMOND_PICKAXE, 1);
         ItemMeta hammerMeta5 = hammerItem5.getItemMeta();
         hammerMeta5.setDisplayName(String.format(hammerName, "Diamond", 128, 128)); //Display name as: Diamond Hammer 128/128
-        hammerMeta5.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobble into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "128/128", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
+        hammerMeta5.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "Turns cobblestone into sand, sand into gravel", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "128/128", ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + new Date().getTime()));
         hammerItem5.setItemMeta(hammerMeta5);
 
         ShapedRecipe woodHammers[] = {new ShapedRecipe(hammerItem1).shape(" w ", " sw", "s  ").setIngredient('s', Material.STICK).setIngredient('w', Material.WOOD), new ShapedRecipe(hammerItem1).shape(" w ", "ws ", "  s").setIngredient('s', Material.STICK).setIngredient('w', Material.WOOD)};
@@ -74,10 +74,10 @@ public class Hammer implements Listener {
             //If the block can be mined with a hammer, then test if it a hammer
             if (e.getPlayer().getItemInHand().getType() == Material.WOOD_PICKAXE || e.getPlayer().getItemInHand().getType() == Material.STONE_PICKAXE || e.getPlayer().getItemInHand().getType() == Material.IRON_PICKAXE || e.getPlayer().getItemInHand().getType() == Material.GOLD_PICKAXE || e.getPlayer().getItemInHand().getType() == Material.DIAMOND_PICKAXE)
                 if (e.getPlayer().getItemInHand().hasItemMeta())
-                    if (ChatColor.stripColor(e.getPlayer().getItemInHand().getItemMeta().getDisplayName()).contains("Hammer "))
+                    if (ChatColor.stripColor(e.getPlayer().getItemInHand().getItemMeta().getDisplayName()).contains("Hammer"))
                         if (e.getPlayer().getItemInHand().getItemMeta().hasLore())
                             if (e.getPlayer().getItemInHand().getItemMeta().getLore().size() >= 2)
-                                if (ChatColor.stripColor(e.getPlayer().getItemInHand().getItemMeta().getLore().get(0)).equalsIgnoreCase("Turns cobble into sand, sand into gravel")) {
+                                if (ChatColor.stripColor(e.getPlayer().getItemInHand().getItemMeta().getLore().get(0)).equalsIgnoreCase("Turns cobblestone into sand, sand into gravel")) {
                                     //Likely some kind of hammer
                                     if (e.getBlock().getType() == Material.COBBLESTONE || e.getBlock().getType() == Material.SAND) {
                                         e.setCancelled(true);

@@ -7,6 +7,10 @@ import team.crazynetwork.raids.SkyBlockRaids;
 public class NmsLoader {
 	//When in need of nms. Add get methods here. Use placeholder if the thing you are trying to get has methods to prevent NPE.
 	private String getVersion(){
+		if (!(Bukkit.getServer().getClass().getPackage().getName().replace(".",",").contains(","))){
+			SkyBlockRaids.getPlugin().getLogger().severe("Cannot detect server version. Are you using Spigot?");
+			return "InvalidVersionDetected";
+		}
 		return Bukkit.getServer().getClass().getPackage().getName().replace(".",  ",").split(",")[3];
 	}
 	

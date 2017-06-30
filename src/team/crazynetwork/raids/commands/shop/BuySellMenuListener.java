@@ -23,6 +23,7 @@ public class BuySellMenuListener implements IconMenu.OptionClickEventHandler {
 	
 	@Override
 	public void onOptionClick(OptionClickEvent event) {
+		Island i = SkyBlockRaids.getPlugin().findIsland(player);
 		int purchaseAmount = this.purchaseAmount;
 		if (event.getPosition() < 36){
 			switch (event.getPosition()){
@@ -57,9 +58,10 @@ public class BuySellMenuListener implements IconMenu.OptionClickEventHandler {
 		} else {
 			switch (event.getPosition()){
 			case 48:
-				Island i = SkyBlockRaids.getPlugin().findIsland(player);
 				if (i.getBalance() >= (price * purchaseAmount)){
 					i.setBalance(i.getBalance() - (price*purchaseAmount));
+					item.setAmount(purchaseAmount);
+					player.getInventory().addItem(item);
 					break;
 				} else {
 					break;
@@ -71,6 +73,7 @@ public class BuySellMenuListener implements IconMenu.OptionClickEventHandler {
 				if (player.getInventory().contains(item,purchaseAmount)){
 					item.setAmount(purchaseAmount);
 					player.getInventory().removeItem(item);
+					i.setBalance(i.getBalance() + (purchaseAmount * price));
 					break;
 				} else {
 					break;

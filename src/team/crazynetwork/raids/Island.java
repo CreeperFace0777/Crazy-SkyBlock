@@ -69,5 +69,13 @@ public class Island {
             return false; //Return false if it isn't.
         }
     }
+    
+    public Double getBalance(){
+    	return balance;
+    }
+    
+    public void setBalance(Double balance){
+    	this.balance = balance;
+    }
 
 }

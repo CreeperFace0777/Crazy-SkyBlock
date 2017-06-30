@@ -1,6 +1,5 @@
 package team.crazynetwork.raids.commands;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;

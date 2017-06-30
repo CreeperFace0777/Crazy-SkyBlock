@@ -1,6 +1,7 @@
 package team.crazynetwork.raids.commands.shop;
 
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -78,7 +79,7 @@ public class ShopCommand implements CommandExecutor {
 				if (subsection.getString("type").equalsIgnoreCase("openSub")){
 					listener.setTarget(counter,subsection.getString("sub"));
 				} else {
-					listener.setTarget(counter,subsection.getString("price"));
+					listener.setTarget(counter,Integer.toString(subsection.getInt("price")));
 				}
 				counter = counter + 1;
 			}
@@ -86,6 +87,39 @@ public class ShopCommand implements CommandExecutor {
 		} else {
 			Bukkit.getLogger().severe("Cannot read shop menu " + currentLocation + ". Non-existant.");
 		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void openPurchase(Player player,ItemStack item,int price,int purchaseAmount){
+		if (item == null){
+			return;
+		}
+		IconMenu menu = new IconMenu((String)SkyBlockRaids.getPlugin().getSettings("purchasePrefix","shop") + item.getItemMeta().getDisplayName(),54,new BuySellMenuListener(price,purchaseAmount,player,item),SkyBlockRaids.getPlugin());
+		
+		if (purchaseAmount > 1){
+			menu.setOption(27,new ItemStack(Material.REDSTONE_BLOCK),"¡ì4¡ìlSET TO 1","");
+			menu.setOption(28,new ItemStack(Material.STAINED_GLASS,1,DyeColor.RED.getData()),"¡ì4¡ìlREMOVE 10","");
+			menu.setOption(29,new ItemStack(Material.STAINED_GLASS_PANE,1,DyeColor.RED.getData()),"¡ì4¡ìlREMOVE 1","");
+		}
+		menu.setOption(31,item,item.getItemMeta().getDisplayName(),"");
+		if (purchaseAmount < 64){
+			menu.setOption(33,new ItemStack(Material.STAINED_GLASS_PANE,1,DyeColor.GREEN.getData()),"¡ìa¡ìlADD 1","");
+			menu.setOption(34,new ItemStack(Material.STAINED_GLASS,1,DyeColor.GREEN.getData()),"¡ìa¡ìlADD 10","");
+			menu.setOption(35,new ItemStack(Material.EMERALD_BLOCK,1,DyeColor.GREEN.getData()),"¡ìa¡ìlSET TO 64","");
+		}
+		if (SkyBlockRaids.getPlugin().findIsland(player).getBalance() >= (price*purchaseAmount)){
+			menu.setOption(48,new ItemStack(Material.EMERALD),"¡ìa¡ìlBUY" + purchaseAmount,"Costs $" + Integer.toString(price*purchaseAmount));
+		} else {
+			menu.setOption(48,new ItemStack(Material.STAINED_GLASS_PANE,1,DyeColor.GRAY.getData()),"¡ìa¡ìlBUY" + purchaseAmount,"Costs $" + Integer.toString(price*purchaseAmount) + ". Not enough money!");
+		}
+		menu.setOption(49,new ItemStack(Material.BARRIER),"¡ìa¡ìlCANCEL" + purchaseAmount,"");
+		if (player.getInventory().contains(item,purchaseAmount)){
+			menu.setOption(50,new ItemStack(Material.REDSTONE_BLOCK),"¡ì4¡ìlSELL" + purchaseAmount,"Gives $" + Integer.toString(price*purchaseAmount));
+		} else {
+			menu.setOption(50,new ItemStack(Material.REDSTONE_BLOCK),"¡ì4¡ìlSELL" + purchaseAmount,"Gives $" + Integer.toString(price*purchaseAmount) + ". Not enough item.");
+		}
+		
+		menu.open(player);
 	}
 	
 	public ShopCommand getShopCommand(){

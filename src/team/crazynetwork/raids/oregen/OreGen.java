@@ -18,16 +18,13 @@ public class OreGen implements Listener, CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("oregen")) {
-			if (args[0].equalsIgnoreCase("help")) {
-				try {
+		if (args[0].equalsIgnoreCase("help")) {
+				if (sender instanceof Player){ //At least try to prevent the error... Using try catch too often isn't good practice.
 					Player p = (Player) sender;
 					p.sendMessage("");
-
-				} catch (ClassCastException e) {
+				} else {
 					sender.sendMessage("Execute via console!");
 				}
-			}
 		}
 
 		return false;
@@ -56,8 +53,11 @@ public class OreGen implements Listener, CommandExecutor {
 				if (percentage >= 91 && percentage <= 95) {
 					e.getBlock().setType(Material.REDSTONE_ORE);
 				}
-				if (percentage >= 96 && percentage <= 100) {
-					e.getBlock().setType(Material.STONE);
+				if (percentage >= 96 && percentage <= 98) {
+					e.getBlock().setType(Material.DIAMOND_ORE);
+				}
+				if (percentage == 99){
+					e.getBlock().setType(Material.EMERALD_ORE);
 				}
 			}
 		}
